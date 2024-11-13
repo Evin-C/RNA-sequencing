@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=2
 #SBATCH --time=1:00:00                 # 1h as max. runtime
-#SBATCH --mem=2000MB                   # 1000MB memory allocation
+#SBATCH --mem=2000MB                   # 2000MB memory allocation
 #SBATCH --partition=pibu_el8
 #SBATCH --array=0-23                   # 24fastq files in total (job 0-23)
 
