@@ -10,12 +10,14 @@
 #SBATCH --partition=pibu_el8
 #SBATCH --array=0-23                   # 24fastq files in total (job 0-23)
 
+USER="ecapan"                          # define variable USER for a more general use
+
 # Load modules (in this case apptainer):
 module load apptainer
 
 # Define the input and output directories:
 input_dir="/data/courses/rnaseq_course/breastcancer_de/reads"
-output_dir="/data/users/ecapan/rna_seq/RNA-sequencing/QC_output"
+output_dir="/data/users/${USER}/rna_seq/RNA-sequencing/QC_output"
 
 # Create the output directory if it doesn't already exist:
 mkdir -p ${output_dir}
