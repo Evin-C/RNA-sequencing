@@ -10,14 +10,16 @@
 #SBATCH --partition=pibu_el8
 #SBATCH --array=0-11                   # 24fastq files in total = 12 pairs (*_R1 and *_R2) (job 0-11)
 
+USER="ecapan"                          # define variable USER for a more general use
+
 # Load modules:
 module load Java/11.0.18               # needed to run Trimmomatic
 module load Trimmomatic/0.39-Java-11   # trims the 
 
 # Define the input and output directories:
 input_dir="/data/courses/rnaseq_course/breastcancer_de/reads"
-trimmed_dir="/data/users/ecapan/rna_seq/RNA-sequencing/trimmed_reads"
-output_dir="/data/users/ecapan/rna_seq/RNA-sequencing/trimQC_output"
+trimmed_dir="/data/users/${USER}/rna_seq/RNA-sequencing/trimmed_reads"
+output_dir="/data/users/${USER}/rna_seq/RNA-sequencing/trimQC_output"
 
 # Create the output directory if they don't already exist:
 mkdir -p ${trimmed_dir}
