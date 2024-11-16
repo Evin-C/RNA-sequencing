@@ -24,6 +24,6 @@ input_dir="/data/users/${USER}/rna_seq/RNA-sequencing/req_mapping_files"
 cd ${input_dir}
 
 # Run HISAT2 to index the genome using Apptainer:
-apptainer exec /containers/apptainer/hisat2_samtools_408dfd02f175cd88.sif hisat2-build -p 4 ${input_dir}/genome.fa ${output_dir}/genome_index
+apptainer exec --bind /data/ /containers/apptainer/hisat2_samtools_408dfd02f175cd88.sif hisat2-build -p 4 ${input_dir}/genome.fa ${output_dir}/genome_index
 # -p 4 tells HISAT2 to use 4 threads (or CPU cores)
 # "genome_index" will be the prefix for the output index files (which will be stored in the same named directory)
