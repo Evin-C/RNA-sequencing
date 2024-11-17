@@ -16,7 +16,7 @@ USER="ecapan"                                    # Define variable USER for gene
 input_dir="/data/courses/rnaseq_course/breastcancer_de/reads"
 
 # Define the output directory where the BAM files will be stored:
-output_dir="/data/users/${USER}/rna_seq/RNA-sequencing/mapped_bam"
+output_dir="/data/users/${USER}/rna_seq/RNA-sequencing/unsorted_mapped_bam"
 
 # Create the output directory if it doesn't already exist:
 mkdir -p ${output_dir}
@@ -48,5 +48,5 @@ for R1_file in "${R1_files[@]}"; do
   # -b tells samtools to convert the input into BAM format
   # -S indicates that the input file is in SAM format
   # - (hyphen) signifies that samtools should read from standard input (stdin).
-  #    In this case, the samtools command is receiving its input from the pipe (|).
+  #   In this case, the samtools command is receiving its input from the pipe (|).
 done
