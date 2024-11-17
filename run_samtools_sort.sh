@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=6              # Number of CPUs is 6 (same as for samtools)
 #SBATCH --time=2:30:00                 # 2.5h as max. runtime
-#SBATCH --mem=30GB                     # 30GB memory allocation
+#SBATCH --mem=48GB                     # 48GB memory allocation (input files are large)
 #SBATCH --partition=pibu_el8
 #SBATCH --array=0-11                   # Array range for 12 files
 
@@ -28,11 +28,16 @@ bam_file=${bam_files[$SLURM_ARRAY_TASK_ID]}
 # Define the base name for the output file (basename strips directory and suffix from filenames):
 base_name=$(basename ${bam_file} .bam)
 
+# Define temporary prefix for sorting (to avoid large intermediate files in memory):
+temp_prefix="${output_dir}/${base_name}_temp"
+
 # Sort the BAM file by genomic coordinates:
 apptainer exec --bind /data/ /containers/apptainer/hisat2_samtools_408dfd02f175cd88.sif \
-  samtools sort -@ 6 -o ${output_dir}/${base_name}_sorted.bam ${bam_file}
-# -@ 6 uses 6 threads for sorting.
+  samtools sort -m 8G -@ 6 -o ${output_dir}/${base_name}_sorted.bam ${bam_file} -T ${temp_prefix} ${bam_file}
+# -m 8G allocates 8GB memory for each thread (total = ~48GB for 6 threads).
+# -@ 6 specifies the number of threads to use (here 6).
 # -o specifies the output file.
+# -T specifies the prefix for temporary files used during sorting.
 
 # Check exit status of samtools and log success/failure:
 if [ $? -eq 0 ]; then
