@@ -33,7 +33,7 @@ temp_prefix="${output_dir}/${base_name}_temp"
 
 # Sort the BAM file by genomic coordinates:
 apptainer exec --bind /data/ /containers/apptainer/hisat2_samtools_408dfd02f175cd88.sif \
-  samtools sort -m 8G -@ 6 -o ${output_dir}/${base_name}_sorted.bam ${bam_file} -T ${temp_prefix} ${bam_file}
+  samtools sort -m 8G -@ 6 -T ${temp_prefix} -o ${output_dir}/${base_name}_sorted.bam ${bam_file}
 # -m 8G allocates 8GB memory for each thread (total = ~48GB for 6 threads).
 # -@ 6 specifies the number of threads to use (here 6).
 # -o specifies the output file.
