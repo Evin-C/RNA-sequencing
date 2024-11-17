@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=4              # Number of CPUs is 4 (same as for samtools)
 #SBATCH --time=2:30:00                 # 2.5h as max. runtime
-#SBATCH --mem=80GB                     # 80GB memory allocation (largest input file is 12GB, 84/4 = 21 > 12, did not work otherwise)
+#SBATCH --mem=96GB                     # 96GB memory allocation (largest input file is 12GB, 96/4 = 24 > 12, did not suffice otherwise)
 #SBATCH --partition=pibu_el8
 #SBATCH --array=0-11                   # Array range for 12 files
 
@@ -33,11 +33,11 @@ temp_prefix="${output_dir}/${base_name}_temp"
 
 # Sort the BAM file by genomic coordinates:
 apptainer exec --bind /data/ /containers/apptainer/hisat2_samtools_408dfd02f175cd88.sif \
-  samtools sort -m 20G -@ 4 -T ${temp_prefix} -o ${output_dir}/${base_name}_sorted.bam ${bam_file}
-# -m 20G allocates 20GB memory for each thread (total = ~80GB for 4 threads).
+  samtools sort -m 18G -@ 4 -T ${temp_prefix} -o ${output_dir}/${base_name}_sorted.bam ${bam_file}
+# -m 18G allocates 18GB memory for each thread (total = ~72GB for 4 threads, leaves about 4625MB buffer for each thread).
 #  For these specified unsorted BAM files, the memory amount had to be increased to avoid out-of-memory failures.
 # -@ 4 specifies the number of threads to use (here 4).
-# -T specifies the prefix for temporary files used during sorting.
+# -T specifies the prefix for temporary files used during sorting. The temporary files will be saved (and later deleted) in the /tmp/ directory.
 # -o specifies the output file (the sorted BAM file).
 
 # Check exit status of samtools and log success/failure:
@@ -51,3 +51,6 @@ fi
 #    After samtools sort runs, successes are written to sort_success.log and failures are written to sort_error.log.
 #    With this, silent failures can be avoided. If a file wasn’t sorted properly, it will show in the log file.
 # ${date} creates timestamps for better tracking.
+
+# Remove temporary files after the job is completed:
+rm -rf ${temp_prefix}*
