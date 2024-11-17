@@ -12,9 +12,6 @@
 
 USER="ecapan"                          # define variable USER for a more general use
 
-# Load modules (in this case apptainer):
-module load apptainer
-
 # Define the input and output directories:
 input_dir="/data/courses/rnaseq_course/breastcancer_de/reads"
 output_dir="/data/users/${USER}/rna_seq/RNA-sequencing/QC_output"
