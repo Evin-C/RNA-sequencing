@@ -36,8 +36,8 @@ apptainer exec --bind /data/ /containers/apptainer/hisat2_samtools_408dfd02f175c
   samtools sort -m 8G -@ 6 -T ${temp_prefix} -o ${output_dir}/${base_name}_sorted.bam ${bam_file}
 # -m 8G allocates 8GB memory for each thread (total = ~48GB for 6 threads).
 # -@ 6 specifies the number of threads to use (here 6).
-# -o specifies the output file.
 # -T specifies the prefix for temporary files used during sorting.
+# -o specifies the output file (the sorted bam file).
 
 # Check exit status of samtools and log success/failure:
 if [ $? -eq 0 ]; then
