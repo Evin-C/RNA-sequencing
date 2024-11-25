@@ -26,7 +26,7 @@ bam_files=(${input_dir}/*_sorted.bam)      # Store BAM file paths in an array.
 counts_output="${output_dir}/gene_counts.txt"
 
 # Run featureCounts:
-apptainer exec --bind /data/ /containers/apptainer/subread_2.0.1-hed695b0_0.sif \
+apptainer exec --bind /data/ /containers/apptainer/subread_2.0.1–hed695b0_0.sif \
   featureCounts -T 4 -t exon -g gene_id \
   -a ${annotation_file} \
   -o ${counts_output} \
