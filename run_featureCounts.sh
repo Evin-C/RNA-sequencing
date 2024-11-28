@@ -27,12 +27,13 @@ counts_output="${output_dir}/gene_counts.txt"
 
 # Run featureCounts:
 apptainer exec --bind /data/ /containers/apptainer/subread_2.0.1--hed695b0_0.sif \
-  featureCounts -T 4 -t exon -g gene_id \
+  featureCounts -T 4 -p -t exon -g gene_id \
   -a ${annotation_file} \
   -o ${counts_output} \
   ${bam_files[@]}
 
 # -T 4: Use 4 threads (matches SLURM settings).
+# -p: Enable paired-end mode (treat input BAM files as paired-end reads).
 # -t exon: Count reads mapped to exon features.
 # -g gene_id: Group reads by gene ID (as specified in the GTF file's "gene_id" attribute).
 # -a: Path to the reference annotation file (GTF format).
