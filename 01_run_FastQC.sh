@@ -24,5 +24,5 @@ fastq_files=(${input_dir}/*.fastq.gz)
 input_file=${fastq_files[$SLURM_ARRAY_TASK_ID]} # Go through all 24 files.
 
 # Run FastQC on all the FASTQ files:
-apptainer exec /containers/apptainer/fastqc-0.12.1.sif fastqc -o ${output_dir} -t 2 ${input_file}
+apptainer exec --bind /data/ /containers/apptainer/fastqc-0.12.1.sif fastqc -o ${output_dir} -t 2 ${input_file}
     # CPU threads per task is 2 (-t 2)
