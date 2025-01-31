@@ -57,4 +57,7 @@ The workflow consists of quality control, read mapping, gene expression quantifi
 ### Note - Optional:
 The repository includes an optional trimming script "optional_run_TrimFastQC.sh", which was not utilized in this analysis as the quality of the reads was deemed satisfactory.
 
-### 
+### Required Tools:
+To run the scripts, the following tools are necessary (version numbers are the version I used):
+* **For shell scripts**: FastQC (v0.12.1), HISAT2 (v2.2.1), Samtools (v1.20),  featureCounts (v2.0.1)
+* **For R scripts**: R (v4.4.2), DESeq2 (v1.46.0), ggplot2 (v3.5.1), pheatmap (v1.0.12), RColorBrewer (v1.1-3), EnhancedVolcano (v1.24.0), VennDiagram (v1.7.3), clusterProfiler (v4.14.4), org.Hs.eg.db (v3.20.0), DOSE (v4.0.0), enrichplot (v1.26.6)
